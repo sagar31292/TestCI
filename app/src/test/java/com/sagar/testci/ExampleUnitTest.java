@@ -19,4 +19,9 @@ public class ExampleUnitTest {
     public void addition_isCorrect2() {
         assertEquals(4, 2 + 2);
     }
+
+    @Test
+    public void addition_isCorrect3() {
+        assertEquals(4, 2 + 1);
+    }
 }
