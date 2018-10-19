@@ -7,10 +7,8 @@ android {
         minSdkVersion 23
         targetSdkVersion 27
 
-        def env = System.getenv()
-        versionCode env['BUILD_NUMBER']
-        versionName "Test App" + env['BUILD_NUMBER']
-
+        versionCode System.getenv("BUILD_NUMBER")
+        versionName System.getenv("BUILD_NUMBER")
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
