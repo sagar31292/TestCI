@@ -25,3 +25,44 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext.getVersionCode = {
+    def buildVersion = 655358;
+    def tcVersionNumber = System.getenv("BUILD_NUMBER")
+    if (tcVersionNumber != null) {
+        buildVersion = Integer.parseInt(tcVersionNumber)
+    } else {
+        try {
+            def version = new XmlParser().parse("./version.xml")
+            buildVersion = Integer.parseInt(version.'build'.text())
+        } catch (IOException ex) {
+            // Version file not found
+            println 'Version code error: version file not found'
+        }
+    }
+
+    // versionCode
+    return buildVersion;
+}
+
+ext.getVersionName = {
+    def majorVersion = "4"
+    def minorVersion = "5"
+
+    try {
+        def version = new XmlParser().parse("./version.xml")
+        majorVersion = Integer.parseInt(version.'major'.text())
+        minorVersion = Integer.parseInt(version.'minor'.text())
+    } catch (IOException ex) {
+        // Version file not found
+        println 'Version name error: version file not found'
+    }
+
+    def versionCode = ext.getVersionCode()
+    def versionName = majorVersion + "." + minorVersion + "." + versionCode
+    println 'VersionName=' + versionName
+    println 'VersionCode=' + versionCode
+
+    return versionName;
+}
+
