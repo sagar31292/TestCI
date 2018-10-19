@@ -6,8 +6,12 @@ android {
         applicationId "com.sagar.testci"
         minSdkVersion 23
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+
+        def env = System.getenv()
+        versionCode env['BUILD_NUMBER']
+        versionName "Test App" + env['BUILD_NUMBER']
+
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
